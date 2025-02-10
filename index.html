@@ -151,7 +151,7 @@
         <div class="option" id="option4" style="background-color: #0000ff; color: #fff;"></div>
     </div>
     <div id="text-container">Take A Screenshot To Save</div>
-    <input type="text" id="text-input" placeholder="Enter your text here">
+    <input type="text" id="text-input" placeholder="Brat Generator : Enter your text here">
     <button id="generate-button">Generate Image</button>
     <p id="screenshot-save">* Take a screenshot or save the image below.</p>
     <div id="image-container">
@@ -160,107 +160,9 @@
     <footer>© 2025 BY TEMPLATE</footer>
 
 
-    <script>
-        const textContainer = document.getElementById('text-container');
-        const textInput = document.getElementById('text-input');
-        const options = document.querySelectorAll('.option');
-        const outputImage = document.getElementById('output-image'); // Get the image element
-        const imageContainer = document.getElementById('image-container');
-        const generateButton = document.getElementById('generate-button');
-        const bodyElement = document.body;
-
-        let currentStyle = 1;
-
-        function applyStyle(styleNumber) {
-            textContainer.classList.remove('text-style-1', 'text-style-2', 'text-style-3', 'text-style-4');
-
-            switch (styleNumber) {
-                case 1:
-                    textContainer.classList.add('text-style-1');
-                    bodyElement.style.backgroundColor = '#00ff00';
-                    bodyElement.style.color = '#000';
-                    textContainer.style.textAlign = "left";
-                    break;
-                case 2:
-                    textContainer.classList.add('text-style-2');
-                    bodyElement.style.backgroundColor = '#fff';
-                    bodyElement.style.color = '#000';
-                     textContainer.style.textAlign = "justify";
-                    break;
-                case 3:
-                    textContainer.classList.add('text-style-3');
-                    bodyElement.style.backgroundColor = '#000';
-                    bodyElement.style.color = '#fff';
-                     textContainer.style.textAlign = "justify";
-                    break;
-                case 4:
-                    textContainer.classList.add('text-style-4');
-                    bodyElement.style.backgroundColor = '#0000ff';
-                    bodyElement.style.color = '#fff';
-                     textContainer.style.textAlign = "justify";
-                    break;
-                default:
-                    textContainer.classList.add('text-style-1');
-                    bodyElement.style.backgroundColor = '#fff';
-                    bodyElement.style.color = '#000';
-                     textContainer.style.textAlign = "right";
-            }
-
-            currentStyle = styleNumber;
-
-        }
-
-        options.forEach(option => {
-            option.addEventListener('click', function() {
-                const optionId = this.id;
-                let styleNumber = 1;
-                if (optionId === 'option2') styleNumber = 2;
-                else if (optionId === 'option3') styleNumber = 3;
-                else if (optionId === 'option4') styleNumber = 4;
-
-                applyStyle(styleNumber);
-
-            });
-        });
-
-       textInput.addEventListener('input', function() {
-            let inputText = this.value;
-            if (currentStyle === 4) {
-                // Randomly replace spaces with line breaks for style 4
-                let newText = "";
-                for (let i = 0; i < inputText.length; i++) {
-                    if (inputText[i] === ' ' && Math.random() < 0.5) {  // 50% chance
-                        newText += '\n';
-                    } else {
-                        newText += inputText[i];
-                    }
-                }
-                textContainer.textContent = newText;
-            } else {
-                textContainer.textContent = inputText;
-            }
-
-        });
-
-        function generateImage() {
-            textContainer.style.backgroundColor = bodyElement.style.backgroundColor; // set the background color
-
-            html2canvas(textContainer).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                outputImage.src = imgData;
-                imageContainer.style.display = 'block'; // Show container
-                textContainer.style.backgroundColor = "transparent";  // remove the back ground color.
-            });
-        }
-
-        // Attach the generateImage function to the button click
-        generateButton.addEventListener('click', generateImage);
-
-        // Initialize on page load
-        applyStyle(currentStyle);
-
-
-    </script>
+<script>
+!function(){function t(t){H.classList.remove("text-style-1","text-style-2","text-style-3","text-style-4");switch(t){case 1:H.classList.add("text-style-1");B.style.backgroundColor="#00ff00";B.style.color="#000";H.style.textAlign="left";break;case 2:H.classList.add("text-style-2");B.style.backgroundColor="#fff";B.style.color="#000";H.style.textAlign="justify";break;case 3:H.classList.add("text-style-3");B.style.backgroundColor="#000";B.style.color="#fff";H.style.textAlign="justify";break;case 4:H.classList.add("text-style-4");B.style.backgroundColor="#0000ff";B.style.color="#fff";H.style.textAlign="justify";break;default:H.classList.add("text-style-1");B.style.backgroundColor="#fff";B.style.color="#000";H.style.textAlign="right"}j=t}function n(){var t=T.value;4===j?(M="",i=0;i<t.length;i++)" "===t[i]&&Math.random()<.5?M+="\n":M+=t[i];H.textContent=M:H.textContent=t}function e(){H.style.backgroundColor=B.style.backgroundColor;html2canvas(H).then(function(t){var n=t.toDataURL("image/png");y.src=n;x.style.display="block";H.style.backgroundColor="transparent"})}var H=document.getElementById("text-container"),T=document.getElementById("text-input"),O=document.querySelectorAll(".option"),y=document.getElementById("output-image"),x=document.getElementById("image-container"),d=document.getElementById("generate-button"),B=document.body,j=1,i,M;O.forEach(function(e){e.addEventListener("click",function(){var e=this.id,n=1;e==="option2"?n=2:e==="option3"?n=3:e==="option4"&&(n=4);t(n)})});T.addEventListener("input",n);d.addEventListener("click",e);t(j)}();
+</script>
 
 </body>
 </html>
