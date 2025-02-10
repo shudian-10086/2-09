@@ -160,7 +160,107 @@
     <footer>© 2025 BY TEMPLATE</footer>
 
 
-    <script>        const textContainer = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64"]('\x74\x65\x78\x74\x2d\x63\x6f\x6e\x74\x61\x69\x6e\x65\x72');        const textInput = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64"]('\x74\x65\x78\x74\x2d\x69\x6e\x70\x75\x74');        const options = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x71\x75\x65\x72\x79\x53\x65\x6c\x65\x63\x74\x6f\x72\x41\x6c\x6c"]('\x2e\x6f\x70\x74\x69\x6f\x6e');        const outputImage = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64"]('\x6f\x75\x74\x70\x75\x74\x2d\x69\x6d\x61\x67\x65');        const imageContainer = document.getElementById('image-container');        const generateButton = document.getElementById('generate-button');        const bodyElement = document.body;        let currentStyle = 1;        function applyStyle(styleNumber) {            textContainer.classList.remove('text-style-1', 'text-style-2', 'text-style-3', 'text-style-4');            switch (styleNumber) {                case 1:                    textContainer.classList.add('text-style-1');                    bodyElement.style.backgroundColor = '#00ff00';                    bodyElement.style.color = '#000';                    textContainer.style.textAlign = "left";                    break;                case 2:                    textContainer.classList.add('text-style-2');                    bodyElement.style.backgroundColor = '#fff';                    bodyElement.style.color = '#000';                     textContainer.style.textAlign = "justify";                    break;                case 3:                    textContainer.classList.add('text-style-3');                    bodyElement.style.backgroundColor = '#000';                    bodyElement.style.color = '#fff';                     textContainer.style.textAlign = "justify";                    break;                case 4:                    textContainer.classList.add('text-style-4');                    bodyElement.style.backgroundColor = '#0000ff';                    bodyElement.style.color = '#fff';                     textContainer.style.textAlign = "justify";                    break;                default:                    textContainer.classList.add('text-style-1');                    bodyElement.style.backgroundColor = '#fff';                    bodyElement.style.color = '#000';                     textContainer.style.textAlign = "right";            }            currentStyle = styleNumber;        }        options.forEach(option => {            option.addEventListener('click', function() {                const optionId = this.id;                let styleNumber = 1;                if (optionId === 'option2') styleNumber = 2;                else if (optionId === 'option3') styleNumber = 3;                else if (optionId === 'option4') styleNumber = 4;                applyStyle(styleNumber);            });        });       textInput.addEventListener('input', function() {            let inputText = this.value;            if (currentStyle === 4) {                               let newText = "";                for (let i = 0; i < inputText.length; i++) {                    if (inputText[i] === ' ' && Math.random() < 0.5) {                      newText += '\n';                    } else {                        newText += inputText[i];                    }                }                textContainer.textContent = newText;            } else {                textContainer.textContent = inputText;            }        });        function generateImage() {            textContainer.style.backgroundColor = bodyElement.style.backgroundColor;           html2canvas(textContainer).then(canvas => {                const imgData = canvas.toDataURL('image/png');                outputImage.src = imgData;                imageContainer.style.display = 'block';               textContainer.style.backgroundColor = "transparent";            });        }             generateButton.addEventListener('click', generateImage);               applyStyle(currentStyle);    </script>
+    <script>
+        const textContainer = document.getElementById('text-container');
+        const textInput = document.getElementById('text-input');
+        const options = document.querySelectorAll('.option');
+        const outputImage = document.getElementById('output-image'); // Get the image element
+        const imageContainer = document.getElementById('image-container');
+        const generateButton = document.getElementById('generate-button');
+        const bodyElement = document.body;
+
+        let currentStyle = 1;
+
+        function applyStyle(styleNumber) {
+            textContainer.classList.remove('text-style-1', 'text-style-2', 'text-style-3', 'text-style-4');
+
+            switch (styleNumber) {
+                case 1:
+                    textContainer.classList.add('text-style-1');
+                    bodyElement.style.backgroundColor = '#00ff00';
+                    bodyElement.style.color = '#000';
+                    textContainer.style.textAlign = "left";
+                    break;
+                case 2:
+                    textContainer.classList.add('text-style-2');
+                    bodyElement.style.backgroundColor = '#fff';
+                    bodyElement.style.color = '#000';
+                     textContainer.style.textAlign = "justify";
+                    break;
+                case 3:
+                    textContainer.classList.add('text-style-3');
+                    bodyElement.style.backgroundColor = '#000';
+                    bodyElement.style.color = '#fff';
+                     textContainer.style.textAlign = "justify";
+                    break;
+                case 4:
+                    textContainer.classList.add('text-style-4');
+                    bodyElement.style.backgroundColor = '#0000ff';
+                    bodyElement.style.color = '#fff';
+                     textContainer.style.textAlign = "justify";
+                    break;
+                default:
+                    textContainer.classList.add('text-style-1');
+                    bodyElement.style.backgroundColor = '#fff';
+                    bodyElement.style.color = '#000';
+                     textContainer.style.textAlign = "right";
+            }
+
+            currentStyle = styleNumber;
+
+        }
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const optionId = this.id;
+                let styleNumber = 1;
+                if (optionId === 'option2') styleNumber = 2;
+                else if (optionId === 'option3') styleNumber = 3;
+                else if (optionId === 'option4') styleNumber = 4;
+
+                applyStyle(styleNumber);
+
+            });
+        });
+
+       textInput.addEventListener('input', function() {
+            let inputText = this.value;
+            if (currentStyle === 4) {
+                // Randomly replace spaces with line breaks for style 4
+                let newText = "";
+                for (let i = 0; i < inputText.length; i++) {
+                    if (inputText[i] === ' ' && Math.random() < 0.5) {  // 50% chance
+                        newText += '\n';
+                    } else {
+                        newText += inputText[i];
+                    }
+                }
+                textContainer.textContent = newText;
+            } else {
+                textContainer.textContent = inputText;
+            }
+
+        });
+
+        function generateImage() {
+            textContainer.style.backgroundColor = bodyElement.style.backgroundColor; // set the background color
+
+            html2canvas(textContainer).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                outputImage.src = imgData;
+                imageContainer.style.display = 'block'; // Show container
+                textContainer.style.backgroundColor = "transparent";  // remove the back ground color.
+            });
+        }
+
+        // Attach the generateImage function to the button click
+        generateButton.addEventListener('click', generateImage);
+
+        // Initialize on page load
+        applyStyle(currentStyle);
+
+
+    </script>
 
 </body>
 </html>
