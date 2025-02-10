@@ -164,7 +164,7 @@
         const textContainer = document.getElementById('text-container');
         const textInput = document.getElementById('text-input');
         const options = document.querySelectorAll('.option');
-        const outputImage = document.getElementById('output-image'); // Get the image element
+        const outputImage = document.getElementById('output-image');
         const imageContainer = document.getElementById('image-container');
         const generateButton = document.getElementById('generate-button');
         const bodyElement = document.body;
@@ -226,10 +226,9 @@
        textInput.addEventListener('input', function() {
             let inputText = this.value;
             if (currentStyle === 4) {
-                // Randomly replace spaces with line breaks for style 4
                 let newText = "";
                 for (let i = 0; i < inputText.length; i++) {
-                    if (inputText[i] === ' ' && Math.random() < 0.5) {  // 50% chance
+                    if (inputText[i] === ' ' && Math.random() < 0.5) {
                         newText += '\n';
                     } else {
                         newText += inputText[i];
@@ -243,22 +242,19 @@
         });
 
         function generateImage() {
-            textContainer.style.backgroundColor = bodyElement.style.backgroundColor; // set the background color
+            textContainer.style.backgroundColor = bodyElement.style.backgroundColor;
 
             html2canvas(textContainer).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 outputImage.src = imgData;
-                imageContainer.style.display = 'block'; // Show container
-                textContainer.style.backgroundColor = "transparent";  // remove the back ground color.
+                imageContainer.style.display = 'block';
+                textContainer.style.backgroundColor = "transparent";
             });
         }
 
-        // Attach the generateImage function to the button click
         generateButton.addEventListener('click', generateImage);
 
-        // Initialize on page load
         applyStyle(currentStyle);
-
 
     </script>
 
