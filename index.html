@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brat Generator: Design Unique Text Styles for Social Media (Instantly!)</title>
+    <meta name="description" content="Create unique and stylish 'brat' text art with our free Brat Generator. Design eye-catching text for social media, posters, and more. Instantly generate cool text styles!">
+    <meta name="keywords" content="Brat Generator, text art, text styles, cool text, stylish text, online generator, free tool, social media text, design text">
+    <meta name="author" content="">
+    <meta property="og:title" content="Brat Generator: Design Unique Text Art Online">
+    <meta property="og:description" content="Create unique and stylish 'brat' text art with our free Brat Generator. Design eye-catching text for social media, posters, and more. Instantly generate cool text styles!">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Palanquin+Dark&family=Monoton&family=Alfa+Slab+One&family=Codystar&display=swap">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            min-height: 100vh;
+        }
+
+        #options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+
+        #text-container {
+            margin-top: 100px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 500px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-font-size: 2em; /*  Relative font size */
+            text-align: justify;
+            background-color: transparent; /* Make text-container background transparent by default */
+            padding: 20px; /* Add padding to the text-container */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        #text-input {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #screenshot-save {
+            font-size: small;
+            color: #888;
+        }
+
+        footer {
+            font-size: small;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        /*  Using em units to make it relative from parents*/
+        .text-style-1 {
+            font-family: 'Palanquin Dark', sans-serif;
+            font-size: 5em;  /*  4x the root element */
+            transform: scaleX(-1);
+            text-align: right;
+            line-height: 1.1;
+        }
+
+        .text-style-2 {
+            font-family: 'Monoton', cursive;
+            font-size: 5em;
+            text-align: justify;
+            line-height: 1.0;
+        }
+
+        .text-style-3 {
+            font-family: 'Alfa Slab One', display;
+            font-size: 4.5em;
+            text-align: justify;
+            line-height: 0.9;
+        }
+
+        .text-style-4 {
+            font-family: 'Codystar', cursive;
+            font-size: 3.5em;
+            text-align: justify;
+            line-height: 1.2;
+        }
+
+        /* Further responsiveness with media queries */
+        @media (max-width: 768px) {
+            .text-style-1 { font-size: 4.5em; }
+            .text-style-2 { font-size: 5.5em; }
+            .text-style-3 { font-size: 5em; }
+            .text-style-4 { font-size: 4em; }
+        }
+
+         @media (max-width: 480px) {
+            .text-style-1 { font-size: 5em; }
+            .text-style-2 { font-size: 6em; }
+            .text-style-3 { font-size: 5.5em; }
+            .text-style-4 { font-size: 4.5em; }
+        }
+
+        #image-container {
+          margin-top: 20px;
+        }
+
+        #generate-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="options">
+        <div class="option" id="option1" style="background-color: #00ff00; color: #000;"></div>
+        <div class="option" id="option2" style="background-color: #fff; color: #000;"></div>
+        <div class="option" id="option3" style="background-color: #000; color: #fff;"></div>
+        <div class="option" id="option4" style="background-color: #0000ff; color: #fff;"></div>
+    </div>
+    <div id="text-container">Take A Screenshot To Save</div>
+    <input type="text" id="text-input" placeholder="Enter your text here">
+    <button id="generate-button">Generate Image</button>
+    <p id="screenshot-save">* Take a screenshot or save the image below.</p>
+    <div id="image-container">
+        <img id="output-image" style="max-width:100%;" src="" alt="Generated Image">
+    </div>
+    <footer>© 2025 BY TEMPLATE</footer>
+
+
+    <script>
+        const textContainer = document.getElementById('text-container');
+        const textInput = document.getElementById('text-input');
+        const options = document.querySelectorAll('.option');
+        const outputImage = document.getElementById('output-image'); // Get the image element
+        const imageContainer = document.getElementById('image-container');
+        const generateButton = document.getElementById('generate-button');
+        const bodyElement = document.body;
+
+        let currentStyle = 1;
+
+        function applyStyle(styleNumber) {
+            textContainer.classList.remove('text-style-1', 'text-style-2', 'text-style-3', 'text-style-4');
+
+            switch (styleNumber) {
+                case 1:
+                    textContainer.classList.add('text-style-1');
+                    bodyElement.style.backgroundColor = '#00ff00';
+                    bodyElement.style.color = '#000';
+                    textContainer.style.textAlign = "left";
+                    break;
+                case 2:
+                    textContainer.classList.add('text-style-2');
+                    bodyElement.style.backgroundColor = '#fff';
+                    bodyElement.style.color = '#000';
+                     textContainer.style.textAlign = "justify";
+                    break;
+                case 3:
+                    textContainer.classList.add('text-style-3');
+                    bodyElement.style.backgroundColor = '#000';
+                    bodyElement.style.color = '#fff';
+                     textContainer.style.textAlign = "justify";
+                    break;
+                case 4:
+                    textContainer.classList.add('text-style-4');
+                    bodyElement.style.backgroundColor = '#0000ff';
+                    bodyElement.style.color = '#fff';
+                     textContainer.style.textAlign = "justify";
+                    break;
+                default:
+                    textContainer.classList.add('text-style-1');
+                    bodyElement.style.backgroundColor = '#fff';
+                    bodyElement.style.color = '#000';
+                     textContainer.style.textAlign = "right";
+            }
+
+            currentStyle = styleNumber;
+
+        }
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const optionId = this.id;
+                let styleNumber = 1;
+                if (optionId === 'option2') styleNumber = 2;
+                else if (optionId === 'option3') styleNumber = 3;
+                else if (optionId === 'option4') styleNumber = 4;
+
+                applyStyle(styleNumber);
+
+            });
+        });
+
+       textInput.addEventListener('input', function() {
+            let inputText = this.value;
+            if (currentStyle === 4) {
+                // Randomly replace spaces with line breaks for style 4
+                let newText = "";
+                for (let i = 0; i < inputText.length; i++) {
+                    if (inputText[i] === ' ' && Math.random() < 0.5) {  // 50% chance
+                        newText += '\n';
+                    } else {
+                        newText += inputText[i];
+                    }
+                }
+                textContainer.textContent = newText;
+            } else {
+                textContainer.textContent = inputText;
+            }
+
+        });
+
+        function generateImage() {
+            textContainer.style.backgroundColor = bodyElement.style.backgroundColor; // set the background color
+
+            html2canvas(textContainer).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                outputImage.src = imgData;
+                imageContainer.style.display = 'block'; // Show container
+                textContainer.style.backgroundColor = "transparent";  // remove the back ground color.
+            });
+        }
+
+        // Attach the generateImage function to the button click
+        generateButton.addEventListener('click', generateImage);
+
+        // Initialize on page load
+        applyStyle(currentStyle);
+
+
+    </script>
+
+</body>
+</html>
